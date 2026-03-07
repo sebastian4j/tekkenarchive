@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tekken - Historia de Lanzamientos</title>
+
+    <!-- Fuentes de Google: Orbitron para títulos, Roboto para texto general -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Roboto:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Iconos de Banderas -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.1/css/flag-icons.min.css">
+
+    <style>
+        /* Variables de color para mantener consistencia */
+        :root {
+            --bg-main: #0a0a0c;
+            --bg-card: #151518;
+            --tekken-red: #e60000;
+            --tekken-red-dark: #8a0000;
+            --text-light: #e6e6e6;
+            --text-muted: #a0a0a0;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --glow-red: rgba(230, 0, 0, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            background-image: radial-gradient(circle at 50% 0%, #1f1111 0%, transparent 50%);
+            font-family: "Roboto", Arial, sans-serif;
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        /* Cabecera / Logo estilizado con CSS */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .header h1 {
+            font-family: "Orbitron", sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            background: linear-gradient(to bottom, #ffffff, #a3a3a3, var(--tekken-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px var(--glow-red);
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-family: "Orbitron", sans-serif;
+            color: var(--tekken-red);
+            letter-spacing: 2px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+
+        /* Contenedor principal de la tabla */
+        .table-wrapper {
+            width: 100%;
+            max-width: 1100px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(230, 0, 0, 0.1);
+            overflow-x: auto;
+            /* Permite scroll horizontal en móviles */
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        /* Estilos de la Tabla */
+        table.main {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        table.main thead {
+            background: linear-gradient(90deg, var(--tekken-red-dark), var(--tekken-red));
+        }
+
+        table.main th {
+            font-family: "Orbitron", sans-serif;
+            padding: 18px 20px;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            letter-spacing: 1.5px;
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+
+        table.main td {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+
+        table.main tbody tr {
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+        /* Efecto cebra suave */
+        table.main tbody tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Efecto Hover estilo videojuego */
+        table.main tbody tr:hover {
+            background: rgba(230, 0, 0, 0.08);
+            transform: translateX(6px);
+            border-left: 4px solid var(--tekken-red);
+        }
+
+        /* Columna de Título */
+        table.main td:first-child {
+            font-family: "Orbitron", sans-serif;
+            /*font-size: 1.1rem;*/
+            /*font-weight: 700;*/
+            color: white;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+            width: 25%;
+        }
+
+        /* Columna de Plataformas */
+        table.main td:last-child {
+            /*color: var(--text-muted);*/
+            line-height: 1.5;
+            width: 35%;
+        }
+        
+
+        /* Reemplazo de las tablas anidadas por Flexbox para las fechas */
+        .release-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .release-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        /* Estilo de las banderas */
+        .release-item .fi {
+            font-size: 1.1em;
+            margin-right: 12px;
+            border-radius: 3px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+            width: 20px;
+            /* Ancho fijo para alinear el texto */
+            text-align: center;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsividad */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            table.main th,
+            table.main td {
+                padding: 12px 10px;
+            }
+
+            table.main td:first-child {
+                /*font-size: 1rem;*/
+            }
+
+            .release-item {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <h1>Tekken</h1>
+        <p>Historial de Lanzamientos</p>
+    </header>
+
+    <div class="table-wrapper">
+        <table class="main">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Fechas de Lanzamiento</th>
+                    <th>Plataforma(s)</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Tekken</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> Dic 1994 (Arcade)</div>
+                            <div class="release-item"><span class="fi fi-jp"></span> Mar 1995 (PS)</div>
+                            <div class="release-item"><span class="fi fi-us"></span> Nov 1995 (PS)</div>
+                            <div class="release-item"><span class="fi fi-eu"></span> Nov 1995 (PS)</div>
+                        </div>
+                    </td>
+                    <td>Namco System 11, PlayStation</td>
+                </tr>
+
+                <tr>
+                    <td>Tekken 2</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> Ago 1995 (Arcade)</div>
+                            <div class="release-item"><span class="fi fi-jp"></span> Mar 1996 (PS)</div>
+                            <div class="release-item"><span class="fi fi-us"></span> Ago 1996 (PS)</div>
+                            <div class="release-item"><span class="fi fi-eu"></span> Oct 1996 (PS)</div>
+                        </div>
+                    </td>
+                    <td>Namco System 11, PlayStation</td>
+                </tr>
+
+                <tr>
+                    <td>Tekken 3</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> Mar 1997 (Arcade)</div>
+                            <div class="release-item"><span class="fi fi-jp"></span> Mar 1998 (PS)</div>
+                            <div class="release-item"><span class="fi fi-us"></span> Abr 1998 (PS)</div>
+                            <div class="release-item"><span class="fi fi-eu"></span> Sep 1998 (PS)</div>
+                        </div>
+                    </td>
+                    <td>Namco System 12, PlayStation</td>
+                </tr>
+
+                <tr>
+                    <td>Tekken Tag Tournament</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> Jul 1999 (Arcade)</div>
+                            <div class="release-item"><span class="fi fi-jp"></span> Mar 2000 (PS2)</div>
+                            <div class="release-item"><span class="fi fi-us"></span> Oct 2000 (PS2)</div>
+                            <div class="release-item"><span class="fi fi-eu"></span> Nov 2000 (PS2)</div>
+                        </div>
+                    </td>
+                    <td>Namco System 12, PlayStation 2</td>
+                </tr>
+
+                <tr>
+                    <td>Tekken Card Challenge</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> 1999</div>
+                        </div>
+                    </td>
+                    <td>WonderSwan</td>
+                </tr>
+
+                <tr>
+                    <td>Tekken Advance</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> Dic 2001</div>
+                            <div class="release-item"><span class="fi fi-us"></span> Ene 2002</div>
+                            <div class="release-item"><span class="fi fi-eu"></span> Feb 2002</div>
+                        </div>
+                    </td>
+                    <td>Game Boy Advance</td>
+                </tr>
+
+                <tr>
+                    <td>Tekken 4</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> Mar 2001 (Arcade)</div>
+                            <div class="release-item"><span class="fi fi-jp"></span> Mar 2002 (PS2)</div>
+                            <div class="release-item"><span class="fi fi-us"></span> Sep 2002 (PS2)</div>
+                            <div class="release-item"><span class="fi fi-eu"></span> Sep 2002 (PS2)</div>
+                        </div>
+                    </td>
+                    <td>Namco System 246, PlayStation 2</td>
+                </tr>
+
+                <tr>
+                    <td>Tekken 5</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> Nov 2004 (Arcade)</div>
+                            <div class="release-item"><span class="fi fi-jp"></span> Mar 2005 (PS2)</div>
+                            <div class="release-item"><span class="fi fi-us"></span> Feb 2005 (PS2)</div>
+                            <div class="release-item"><span class="fi fi-eu"></span> Jun 2005 (PS2)</div>
+                        </div>
+                    </td>
+                    <td>Namco System 256, PlayStation 2</td>
+                </tr>
+
+                <tr>
+                    <td>Tekken 5: Dark Resurrection</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> Jul 2005 (Arcade)</div>
+                            <div class="release-item"><span class="fi fi-jp"></span> Jul 2006 (PSP)</div>
+                            <div class="release-item"><span class="fi fi-us"></span> Ago 2006</div>
+                            <div class="release-item"><span class="fi fi-eu"></span> Ago 2006</div>
+                        </div>
+                    </td>
+                    <td>Namco System 256, PlayStation 3, PlayStation Portable</td>
+                </tr>
+
+                <tr>
+                    <td>Death by Degrees</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> Feb 2005</div>
+                            <div class="release-item"><span class="fi fi-us"></span> Feb 2005</div>
+                            <div class="release-item"><span class="fi fi-eu"></span> Mar 2005</div>
+                        </div>
+                    </td>
+                    <td>PlayStation 2</td>
+                </tr>
+
+                <tr>
+                    <td>Tekken 6</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> Nov 2007 (Arcade)</div>
+                            <div class="release-item"><span class="fi fi-jp"></span> Oct 2009</div>
+                            <div class="release-item"><span class="fi fi-us"></span> Oct 2009</div>
+                            <div class="release-item"><span class="fi fi-eu"></span> Oct 2009</div>
+                        </div>
+                    </td>
+                    <td>Namco System 357, PlayStation 3, PlayStation Portable, Xbox 360</td>
+                </tr>
+
+                <tr>
+                    <td>Tekken 6: Bloodline Rebellion</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> Dic 2008</div>
+                        </div>
+                    </td>
+                    <td>Namco System 357</td>
+                </tr>
+
+                <tr>
+                    <td>Tekken Resolute</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> 2010</div>
+                        </div>
+                    </td>
+                    <td>J2ME</td>
+                </tr>
+
+                <tr>
+                    <td>Tekken Bowl</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> 2011</div>
+                        </div>
+                    </td>
+                    <td>iOS</td>
+                </tr>
+                <tr>
+                    <td>
+                        Tekken Hybrid
+                        <table>
+                            <tbody>
+                            <tr style="margin-top: 8px; font-size: 0.6rem; width: 100%; border-collapse: collapse;">
+                                <td>Tekken: Blood Vengeance 3D</td>
+                                <td>Tekken Tag Tournament 2 Demo</td>
+                                <td>Tekken Tag Tournament HD</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> Nov 2011</div>
+                            <div class="release-item"><span class="fi fi-us"></span> Nov 2011</div>
+                            <div class="release-item"><span class="fi fi-eu"></span> Nov 2011</div>
+                        </div>
+                    </td>
+                    <td>PlayStation 3</td>
+                </tr>
+                <tr>
+                    <td>Tekken Tag Tournament 2</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> Sep 2011 (Arcade)</div>
+                            <div class="release-item"><span class="fi fi-jp"></span> Sep 2012</div>
+                            <div class="release-item"><span class="fi fi-us"></span> Sep 2012</div>
+                            <div class="release-item"><span class="fi fi-eu"></span> Sep 2012</div>
+                        </div>
+                    </td>
+                    <td>Namco System 369, PlayStation 3, Xbox 360, Wii U</td>
+                </tr>
+
+                <tr>
+                    <td>Tekken 3D: Prime Edition</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> Feb 2012</div>
+                            <div class="release-item"><span class="fi fi-us"></span> Feb 2012</div>
+                            <div class="release-item"><span class="fi fi-eu"></span> Feb 2012</div>
+                        </div>
+                    </td>
+                    <td>Nintendo 3DS</td>
+                </tr>
+
+                <tr>
+                    <td>Street Fighter X Tekken</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> Mar 2012</div>
+                            <div class="release-item"><span class="fi fi-us"></span> Mar 2012</div>
+                            <div class="release-item"><span class="fi fi-eu"></span> Mar 2012</div>
+                        </div>
+                    </td>
+                    <td>PlayStation 3, Xbox 360, PC, iOS, PS Vita, Shield</td>
+                </tr>
+
+                <tr>
+                    <td>Tekken Card Tournament</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> 2013</div>
+                        </div>
+                    </td>
+                    <td>Android, iOS, Web</td>
+                </tr>
+
+                <tr>
+                    <td>Tekken Revolution</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> Jun 2013</div>
+                            <div class="release-item"><span class="fi fi-us"></span> Jun 2013</div>
+                            <div class="release-item"><span class="fi fi-eu"></span> Jun 2013</div>
+                        </div>
+                    </td>
+                    <td>PlayStation 3</td>
+                </tr>
+
+                <tr>
+                    <td>Tekken 7</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> Mar 2015 (Arcade)</div>
+                            <div class="release-item"><span class="fi fi-jp"></span> Jun 2017</div>
+                            <div class="release-item"><span class="fi fi-us"></span> Jun 2017</div>
+                            <div class="release-item"><span class="fi fi-eu"></span> Jun 2017</div>
+                        </div>
+                    </td>
+                    <td>Namco System ES3, PlayStation 4, Xbox One, PC</td>
+                </tr>
+
+                <tr>
+                    <td>Tekken 7: Fated Retribution</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> Jul 2016</div>
+                        </div>
+                    </td>
+                    <td>Namco System ES3</td>
+                </tr>
+
+                <tr>
+                    <td>Tekken 7: Fated Retribution Round 2</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> Feb 2018</div>
+                        </div>
+                    </td>
+                    <td>Namco System ES3</td>
+                </tr>
+
+                <tr>
+                    <td>Tekken Mobile</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> Feb 2018</div>
+                            <div class="release-item"><span class="fi fi-us"></span> Feb 2018</div>
+                            <div class="release-item"><span class="fi fi-eu"></span> Feb 2018</div>
+                        </div>
+                    </td>
+                    <td>iOS, Android</td>
+                </tr>
+
+                <tr>
+                    <td>Tekken 8</td>
+                    <td>
+                        <div class="release-list">
+                            <div class="release-item"><span class="fi fi-jp"></span> Ene 2024</div>
+                            <div class="release-item"><span class="fi fi-us"></span> Ene 2024</div>
+                            <div class="release-item"><span class="fi fi-eu"></span> Ene 2024</div>
+                        </div>
+                    </td>
+                    <td>PlayStation 5, PC, Xbox Series X/S</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>
